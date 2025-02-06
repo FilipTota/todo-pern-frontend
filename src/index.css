@@ -1,10 +1,9 @@
+@tailwind utilities;
 @import "tailwindcss";
 
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  display: flex;
-  place-items: center;
   min-height: 100vh;
-  background: rgb(165 223 165);
+  background: rgb(178 227 178);
 }
