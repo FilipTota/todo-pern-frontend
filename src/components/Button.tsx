@@ -23,7 +23,7 @@ const Button: React.FC<ButtonProps> = ({
           padding: padding,
           margin: margin,
         }}
-        className="py-2 px-12 bg-[rgb(0,_177,_75)] rounded-lg text-white cursor-pointer ml-4"
+        className="ml-0 sm:ml-4 py-2 px-12 bg-[rgb(0,_177,_75)] rounded-lg text-white cursor-pointer hover:opacity-85"
       >
         {imageSrc ? (
           <img
