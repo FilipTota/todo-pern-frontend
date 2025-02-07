@@ -6,6 +6,7 @@ interface ButtonProps {
   padding?: string;
   margin?: string;
   imageSrc?: string;
+  onClick?: () => void;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -14,6 +15,7 @@ const Button: React.FC<ButtonProps> = ({
   background,
   padding,
   margin,
+  onClick,
 }) => {
   return (
     <>
@@ -24,6 +26,7 @@ const Button: React.FC<ButtonProps> = ({
           margin: margin,
         }}
         className="ml-0 sm:ml-4 py-2 px-12 bg-[rgb(0,_177,_75)] rounded-lg text-white cursor-pointer hover:opacity-85"
+        onClick={onClick}
       >
         {imageSrc ? (
           <img
