@@ -3,7 +3,7 @@ import Input from "./Input";
 import editIcon from "../images/edit-icon.png";
 import deleteIcon from "../images/delete-icon.png";
 import { deleteTodo, updateTodo } from "../api/todoApi";
-import { Todo } from "../App";
+import { Todo } from "../pages/Todo";
 import { useState } from "react";
 
 interface TodoListProps {

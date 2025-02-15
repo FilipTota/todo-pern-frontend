@@ -1,62 +1,28 @@
-import { useEffect, useState } from "react";
-import Input from "./components/Input";
-import Button from "./components/Button";
-import TodoList from "./components/TodoList";
-import { getAllTodos, createTodo } from "./api/todoApi";
-import "./App.css";
-
-export interface Todo {
-  id: number;
-  description: string;
-}
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Todo from "./pages/Todo";
 
 function App() {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [description, setDescription] = useState("");
-
-  useEffect(() => {
-    const getTodos = async () => {
-      const data = await getAllTodos();
-      if (data) setTodos(data);
-    };
-
-    getTodos();
-  }, []);
-
-  // reload todos on delete or edit without reloading the browser, todos will get reloaded with state
-  const reloadTodos = async () => {
-    const data = await getAllTodos();
-    setTodos(data);
-  };
-
-  const addTodo = async () => {
-    await createTodo(description);
-    setDescription("");
-    reloadTodos();
-  };
-
   return (
-    <div className="min-h-screen flex items-center justify-center my-6">
-      <div className="flex flex-col w-[90%] sm:w-[70%] sm:min-w-[29em] sm:max-w-[60em]">
-        <div className="bg-gray-100 p-7 rounded-lg shadow-lg ">
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-0">
-            <Input
-              type="text"
-              placeholder="Add Todo"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && addTodo()}
-            />
-            <Button text="Add" onClick={addTodo} />
-          </div>
-        </div>
-        {todos?.length !== 0 && (
-          <div className="bg-gray-100 p-7 rounded-lg shadow-lg mt-4">
-            <TodoList todos={todos} reloadTodos={reloadTodos} />
-          </div>
-        )}
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        {/* Navigate to /login if user accesses the root */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/todo" element={<Todo />} />
+
+        {/* Catch-all route for undefined paths */}
+        <Route path="*" element={<Navigate to="/todo" replace />} />
+      </Routes>
+    </Router>
   );
 }
 
