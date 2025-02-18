@@ -81,6 +81,13 @@ const Login = ({ setIsLoggedIn }: Props) => {
     }
   };
 
+  const handleGoogleAuth = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    window.location.href = `${
+      import.meta.env.VITE_BACKEND_URL
+    }/api/auth/google`;
+  };
+
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="shadow-lg p-5 rounded-lg bg-white w-[100%] max-w-[350px]">
@@ -108,6 +115,7 @@ const Login = ({ setIsLoggedIn }: Props) => {
           )}
           <div className="flex justify-center">
             <Button text="Login" type="submit" margin="0" />
+            <Button text="Google" onClick={(e) => handleGoogleAuth(e)} />
           </div>
           <div className="text-sm text-red-500 text-center">{error}</div>
           <div className="flex flex-col items-center">
