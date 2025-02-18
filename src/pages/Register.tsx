@@ -5,7 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { registerUser } from "../api/authApi";
 import Cookies from "js-cookie";
 
-const Register = () => {
+type Props = {
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const Register = ({ setIsLoggedIn }: Props) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -82,6 +86,7 @@ const Register = () => {
 
         if (newUserResult && newUserResult.accessToken) {
           Cookies.set("accessToken", newUserResult.accessToken);
+          setIsLoggedIn(true);
           navigate("/todo");
         } else {
           setError(newUserResult.message || "Something went wrong");

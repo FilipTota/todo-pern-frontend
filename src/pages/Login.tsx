@@ -5,7 +5,11 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../api/authApi";
 
-const Login = () => {
+type Props = {
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const Login = ({ setIsLoggedIn }: Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -65,6 +69,7 @@ const Login = () => {
 
         if (userResult && userResult.accessToken) {
           Cookies.set("accessToken", userResult.accessToken);
+          setIsLoggedIn(true);
           navigate("/todo");
         } else {
           setError(userResult.message || "Something went wrong");

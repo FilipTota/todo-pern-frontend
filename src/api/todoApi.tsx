@@ -1,8 +1,21 @@
+import Cookies from "js-cookie";
+
 const api_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const getAllTodos = async () => {
   try {
-    const response = await fetch(`${api_URL}/api/todos`);
+    const jwtToken = Cookies.get("accessToken");
+    if (!jwtToken) {
+      throw new Error("Authorization token is missing");
+    }
+
+    const response = await fetch(`${api_URL}/api/todos`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -34,9 +47,15 @@ export const getSingleTodo = async (id: number) => {
 
 export const createTodo = async (description: string) => {
   try {
+    const jwtToken = Cookies.get("accessToken");
+    if (!jwtToken) {
+      throw new Error("Authorization token is missing");
+    }
+
     const response = await fetch(`${api_URL}/api/todos`, {
       method: "POST",
       headers: {
+        Authorization: `Bearer ${jwtToken}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
