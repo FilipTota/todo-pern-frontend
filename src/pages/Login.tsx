@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import GoogleButton from "../components/GoogleButton";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../api/authApi";
@@ -113,19 +114,24 @@ const Login = ({ setIsLoggedIn }: Props) => {
               {passwordError}
             </div>
           )}
-          <div className="flex justify-center">
+          <div className="flex flex-col items-center justify-center gap-2">
             <Button text="Login" type="submit" margin="0" />
-            <Button text="Google" onClick={(e) => handleGoogleAuth(e)} />
+            <div className="flex justify-center">
+              <GoogleButton onClick={(e) => handleGoogleAuth(e)} />
+            </div>
           </div>
           <div className="text-sm text-red-500 text-center">{error}</div>
-          <div className="flex flex-col items-center">
+          <div className="flex justify-center items-center mt-8">
             Don&apos;t have an account?
             <Button
               text="Register"
-              margin="0"
+              margin="0 0 0 10px"
               width="5rem"
               padding="0.3rem"
-              onClick={() => navigate("/register")}
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/register");
+              }}
             />
           </div>
         </form>

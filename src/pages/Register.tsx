@@ -142,14 +142,17 @@ const Register = ({ setIsLoggedIn }: Props) => {
           {error && (
             <div className="text-sm text-red-500 text-center">{error}</div>
           )}
-          <div className="flex flex-col items-center">
+          <div className="flex justify-center items-center mt-8">
             Already have an account?
             <Button
               text="Login"
-              margin="0"
+              margin="0 0 0 10px"
               width="5rem"
               padding="0.3rem"
-              onClick={() => navigate("/login")}
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/login");
+              }}
             />
           </div>
         </form>
